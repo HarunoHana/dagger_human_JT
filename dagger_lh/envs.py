@@ -166,7 +166,7 @@ class RobosuiteEnv:
                         height: Optional[int] = None,
                         width: Optional[int] = None) -> np.ndarray:
         """High-resolution frame for the human operator (HWC uint8, upright)."""
-        cam = camera or self.cfg.render_camera
+        cam = camera or "birdview"
         h = height or self.cfg.render_height
         w = width or self.cfg.render_width
         img = self.env.sim.render(width=w, height=h, camera_name=cam)

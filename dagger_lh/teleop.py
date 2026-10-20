@@ -27,8 +27,8 @@ TRANS_AXES: Dict[int, Tuple[str, str]] = {
     2: ("r", "f"),          # +Z / -Z
 }
 ROT_AXES: Dict[int, Tuple[str, str]] = {
-    0: ("right", "left"),   # roll
-    1: ("up", "down"),      # pitch
+    0: ("left", "right"),   # roll
+    1: ("down", "up"),      # pitch
     2: ("q", "e"),          # yaw
 }
 #: Edge-triggered keys -> TeleopState field they set.
@@ -109,7 +109,8 @@ class BaseTeleop:
     @property
     def intervening(self) -> bool:
         return self._intervening
-
+    def set_gripper_closed(self, closed: bool):
+        self._gripper_closed = bool(closed)
     def force_release(self) -> None:
         self._intervening = False
 
@@ -235,9 +236,11 @@ class OperatorDisplay:
         pygame.key.set_repeat(0)  # we read held state ourselves
         scale = float(cfg.window_scale)
         self.main = int(main_size * scale)
-        self.side = int(self.main * 0.45) if cfg.show_second_view else 0
+        #self.side = int(self.main * 0.45) if cfg.show_second_view else 0
+        self.side = self.main if cfg.show_second_view else 0
         w = self.main + self.PANEL_W + (self.side + 8 if self.side else 0)
-        h = max(self.main, self.side * 2 + 8)
+        #h = max(self.main, self.side * 2 + 8)
+        h = self.main
         self.screen = pygame.display.set_mode((w, h))
         pygame.display.set_caption("DAgger teleoperation")
         self.font = self._font(15)
@@ -274,8 +277,8 @@ class OperatorDisplay:
              side_imgs: Optional[List[np.ndarray]] = None) -> None:
         pg = self.pg
         self.screen.fill(self.BG)
-        self._blit_image(main_img, (0, 0), self.main)
-
+       # self._blit_image(main_img, (0, 0), self.main) (이게 원래화면)
+        self._blit_image(main_img[::-1, ::-1].copy(), (0, 0), self.main)
         x = self.main + 8
         if self.side and side_imgs:
             for i, im in enumerate(side_imgs[:2]):

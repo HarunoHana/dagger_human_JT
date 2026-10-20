@@ -102,7 +102,9 @@ class SessionRunner:
             for cam in self.cfg.env.camera_names:
                 if cam != self.cfg.env.render_camera:
                     sides.append(self.env.render_operator(
-                        camera=cam, height=192, width=192))
+                    camera=cam,
+                    height=self.cfg.env.render_height,
+                    width=self.cfg.env.render_width))
                     break
         return main, sides
 
@@ -173,9 +175,33 @@ class SessionRunner:
         success = False
         step = 0
 
+        # AI만 타이머 되게끔
+        ai_elapsed = 0.0
+        ai_limit = 60.0
+        ai_timed_out = False
+        last_tick = time.monotonic()
+        previous_human = False
+        last_robot_gripper_closed = False
+
         while True:
             st = self.teleop.poll()
             self._handle_global_events(st)
+
+            now = time.monotonic()
+            delta = now - last_tick
+            last_tick = now
+
+            # Count time only when AI was controlling
+            if not previous_human and policy is not None:
+                ai_elapsed += delta
+
+            if ai_elapsed >= ai_limit:
+                ai_timed_out = True
+                self.logger.log(
+                    "ai_timeout",
+                    {"round": round_index, "ai_seconds": ai_elapsed}
+                )
+                break
 
             if st.event_giveup:
                 res.gave_up = True
@@ -190,15 +216,41 @@ class SessionRunner:
                 break
 
             human_in_control = st.intervening or policy is None
+            previous_human = human_in_control
+
             if human_in_control and not was_intervening:
+                if policy is not None:
+                    self.teleop.set_gripper_closed(
+                        last_robot_gripper_closed
+                    )
+
+                    # poll() already created st.action.
+                    # Update it immediately for this frame.
+                    st.action[6] = (
+                        1.0 if last_robot_gripper_closed else -1.0
+                    )
+                    st.gripper_closed = last_robot_gripper_closed
+
                 res.n_interventions += 1
                 if res.first_intervention_step is None:
                     res.first_intervention_step = step
                     res.time_to_first_intervention = time.time() - t_start
-                self.logger.log("intervention_start", {"round": round_index, "step": step})
+                self.logger.log(
+                    "intervention_start",
+                    {"round": round_index, "step": step}
+                )
+
             elif was_intervening and not human_in_control:
-                self.logger.log("intervention_end", {"round": round_index, "step": step})
+                self.logger.log(
+                    "intervention_end",
+                    {"round": round_index, "step": step}
+                )
+
+                if hasattr(policy, "resume_from_human"):
+                    policy.resume_from_human()
+
             was_intervening = human_in_control
+
 
             if human_in_control:
                 action = st.action
@@ -207,6 +259,7 @@ class SessionRunner:
                     res.idle_steps += 1
             else:
                 action = np.asarray(policy.act(obs), dtype=np.float64)
+                last_robot_gripper_closed = bool(action[6] > 0)
                 if action_noise_std > 0:
                     # `degraded` condition: the policy visibly worsens regardless
                     # of what the operator does.
@@ -235,7 +288,7 @@ class SessionRunner:
                 "controller": "YOU" if human_in_control else "ROBOT",
                 "round": f"{round_index + 1}/{self.study.total_rounds}",
                 "step": f"{step}/{cfg.env.horizon}",
-                "time": f"{time.time() - t_start:5.1f}s",
+                "time": f"{max(0.0, ai_limit - ai_elapsed):.1f}s LEFT",
                 "gripper": "closed" if st.gripper_closed else "open",
                 "status": ("SUCCESS - press ENTER" if success else ""),
             }
@@ -253,6 +306,36 @@ class SessionRunner:
         return res
 
     # ------------------------------------------------------------------ demo mode
+    
+    def run_scripted_test(self):
+        from .scripted_pickplace import ScriptedPickPlace
+
+        robot = ScriptedPickPlace(self.env)
+
+        self.display.message(
+            "SCRIPTED ROBOT TEST",
+            "The robot will perform Pick and Place.\n\n"
+            "Press TAB to take control.\n"
+            "Press TAB again to return control to the robot.\n\n"
+            "Press ENTER to begin.",
+        )
+
+        if self.display.wait_for_key() == self.display.K_ESCAPE:
+            return
+
+        robot.reset()
+
+        result = self.run_episode(
+            policy=robot,
+            round_index=0,
+            condition="scripted",
+        )
+
+        print("Success:", result.success)
+        print("Human steps:", result.human_steps)
+        print("Interventions:", result.n_interventions)
+        print("Total seconds:", result.seconds)
+
     def run_demo_mode(self, num_demos: Optional[int] = None) -> Dict[str, Any]:
         """Pure teleoperation collection: no policy in the loop."""
         cfg = self.cfg

@@ -197,7 +197,7 @@ class PathsConfig:
 
 @dataclass
 class Config:
-    mode: str = "dagger"  # "dagger" | "demo"
+    mode: str = "dagger"  # "dagger" | "demo" | "scripted"
     env: EnvConfig = field(default_factory=EnvConfig)
     teleop: TeleopConfig = field(default_factory=TeleopConfig)
     policy: PolicyConfig = field(default_factory=PolicyConfig)

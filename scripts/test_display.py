@@ -69,7 +69,7 @@ def main() -> int:
                 obs = env.reset()
             main = env.render_operator()
             side = env.render_operator(camera="robot0_eye_in_hand",
-                                       height=192, width=192)
+                                       height=512, width=512)
             disp.draw(main, {
                 "mode": "DISPLAY TEST",
                 "controller": "YOU" if st.intervening else "ROBOT",
@@ -84,7 +84,7 @@ def main() -> int:
         print(f"  engaged steps: {kb.total_engaged_steps}/{kb.total_steps}")
     else:
         main = env.render_operator()
-        side = env.render_operator(camera="robot0_eye_in_hand", height=192, width=192)
+        side = env.render_operator(camera="robot0_eye_in_hand", height=512, width=512)
         for i in range(3):
             disp.draw(main, {
                 "mode": "DAgger", "controller": "YOU" if i % 2 else "ROBOT",

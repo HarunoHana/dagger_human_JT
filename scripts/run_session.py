@@ -39,7 +39,7 @@ def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default=None, help="YAML config file")
-    ap.add_argument("--mode", choices=["demo", "dagger"], default=None)
+    ap.add_argument("--mode", choices=["demo", "dagger", "scripted"], default=None)
     ap.add_argument("--participant", default=None, help="participant id")
 
     g = ap.add_argument_group("task")
@@ -168,6 +168,10 @@ def main() -> int:
 
     runner = SessionRunner(cfg)
     try:
+        if cfg.mode == "scripted":
+            runner.run_scripted_test()
+            return 0
+
         if cfg.mode == "demo":
             summary = runner.run_demo_mode(num_demos=args.demos)
             print(json.dumps(summary, indent=2))
