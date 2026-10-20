@@ -1,0 +1,5 @@
+round_index,phase,condition,contingent,n_rollouts,n_success,steps_total,human_steps,engaged_steps,keypresses,n_interventions,first_intervention_step,time_to_first_intervention,idle_steps,giveup_events,discard_events,episode_seconds,success_rate,intervention_rate,engagement_rate,passivity,keypresses_per_step,survey_control,survey_effectiveness,survey_expect_success,survey_frustration,survey_persistence,survey_effort,train_steps,train_seconds,train_loss_start,train_loss_end,train_loss_delta,train_committed,train_num_samples,train_note
+0,1,responsive,True,1,1,40,0,0,0,0,,,0,0,0,2.226,1,0,0,0,0,1,1,7,1,7,1,0,0,nan,nan,nan,True,0,no trainable samples (no human-labelled steps yet)
+1,1,responsive,True,1,1,41,0,0,0,0,,,0,0,0,2.05138,1,0,0,0,0,1,1,7,1,7,1,0,0,nan,nan,nan,True,0,no trainable samples (no human-labelled steps yet)
+2,1,responsive,True,1,0,1200,721,254,48,3,227,11.4541,467,0,0,60.6138,0,0.600833,0.211667,0.647712,0.04,4,2,4,5,5,5,300,3.697,-6.2187,-18.8696,-12.6509,True,721,
+3,1,responsive,True,1,1,1190,777,219,51,2,312,15.7224,558,0,0,60.0238,1,0.652941,0.184034,0.718147,0.0428571,1,1,1,1,1,1,300,3.883,-2.27299,-21.0498,-18.7768,True,1498,

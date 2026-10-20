@@ -1,0 +1,4 @@
+{"t": 1792473400.2568173, "session_id": "1792473400_548a6a", "event": "session_start", "participant_id": "p000", "condition": "responsive", "two_phase": false, "mode": "scripted", "algo": "bc_rnn", "env": "PickPlaceCan", "platform": "Windows-10-10.0.26200-SP0", "python": "3.10.21"}
+{"t": 1792473408.7317736, "session_id": "1792473400_548a6a", "event": "intervention_start", "round": 0, "step": 63}
+{"t": 1792473410.300573, "session_id": "1792473400_548a6a", "event": "intervention_end", "round": 0, "step": 94}
+{"t": 1792473422.5820243, "session_id": "1792473400_548a6a", "event": "intervention_start", "round": 0, "step": 337}

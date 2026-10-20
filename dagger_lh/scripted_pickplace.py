@@ -425,14 +425,23 @@ class ScriptedPickPlace:
 
             contact = self.contact_grasp()
 
-            if contact is False and distance > 0.14:
-                self.retry(
-                    "Can lost before release"
-                )
+            xy_error = np.linalg.norm(
+                (target - hand)[:2]
+            )
+            z_error = abs(target[2] - hand[2])
 
-            elif np.linalg.norm(target - hand) < 0.025:
+            if contact is False and distance > 0.14:
+                self.retry("Can lost before release")
+
+            elif xy_error < 0.04 and z_error < 0.06:
                 self.change_stage(
                     7, "Releasing can"
+                )
+
+            elif self.steps % 100 == 0:
+                print(
+                    f"LOWERING: XY={xy_error:.3f}, "
+                    f"Z={z_error:.3f}"
                 )
 
         # -------------------------------

@@ -1,0 +1,1 @@
+{"t": 1791441271.8541389, "session_id": "1791441271_27d161", "event": "session_start", "participant_id": "p001", "condition": "responsive", "two_phase": false, "mode": "dagger", "algo": "bc_rnn", "env": "Lift", "platform": "Windows-10-10.0.26200-SP0", "python": "3.10.21"}

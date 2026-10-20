@@ -1,0 +1,21 @@
+{
+  "participant_id": "p001",
+  "condition": "responsive",
+  "two_phase": false,
+  "phase2_condition": null,
+  "n_rounds": 3,
+  "delta_intervention_rate": 0.63,
+  "delta_engagement_rate": 0.1775,
+  "delta_keypresses_per_step": 0.04,
+  "delta_passivity": 0.7182539682539683,
+  "delta_latency_to_intervene": NaN,
+  "rel_decline_intervention": NaN,
+  "rel_decline_engagement": NaN,
+  "rel_decline_keypresses": NaN,
+  "total_giveups": 0.0,
+  "baseline_window": 1.0,
+  "index": NaN,
+  "mode": "dagger",
+  "dataset": "data/sessions\\p001_dagger_20261008_015817\\demos.hdf5",
+  "session_dir": "data/sessions\\p001_dagger_20261008_015817"
+}

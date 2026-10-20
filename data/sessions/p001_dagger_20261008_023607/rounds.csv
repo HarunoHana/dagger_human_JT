@@ -1,0 +1,2 @@
+round_index,phase,condition,contingent,n_rollouts,n_success,steps_total,human_steps,engaged_steps,keypresses,n_interventions,first_intervention_step,time_to_first_intervention,idle_steps,giveup_events,discard_events,episode_seconds,success_rate,intervention_rate,engagement_rate,passivity,keypresses_per_step,train_steps,train_seconds,train_loss_start,train_loss_end,train_loss_delta,train_committed,train_num_samples,train_note
+0,1,responsive,True,1,1,41,0,0,0,0,,,0,0,0,2.2313,1,0,0,0,0,0,0,nan,nan,nan,True,0,no trainable samples (no human-labelled steps yet)
