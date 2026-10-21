@@ -781,3 +781,21 @@ One online-specific point: because debriefing happens in-browser, a participant
 who abandons the tab mid-session never sees it. If your IRB requires debriefing
 for all enrolled participants, plan to send it through the recruitment platform
 using the `PROLIFIC_PID` recorded in the session log.
+
+---
+
+## PickPlaceCan Experiment Updates(10.20)
+
+### Implemented Features
+
+- **Autonomous Pick-and-Place:** Scripted robot control for grasping, lifting, transporting, and placing objects.
+- **Motion Variation:** 24 motion presets varying approach paths, transport routes, movement speed, and grasp timing.
+- **Human Intervention:** TAB-based switching between autonomous and manual control.
+- **Recovery Mechanism:** Logic for resuming autonomous control and reacquiring objects after human intervention.
+- **Grasp Verification:** Contact-based detection of successful grasps.
+- **Experiment Timer:** 60-second robot-control timer that pauses during human intervention.
+
+### Current Status
+
+- Successfully tested autonomous pick-and-place with Motion Variation enabled.
+- Recovery after significant human disturbances requires further testing.
