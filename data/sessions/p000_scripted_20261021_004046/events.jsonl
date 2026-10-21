@@ -1,0 +1,10 @@
+{"t": 1792557646.5747323, "session_id": "1792557646_a580a7", "event": "session_start", "participant_id": "p000", "condition": "responsive", "two_phase": false, "mode": "scripted", "algo": "bc_rnn", "env": "PickPlaceCan", "platform": "Windows-10-10.0.26200-SP0", "python": "3.10.21"}
+{"t": 1792557650.348319, "session_id": "1792557646_a580a7", "event": "intervention_start", "round": 0, "step": 30}
+{"t": 1792557657.4706185, "session_id": "1792557646_a580a7", "event": "intervention_end", "round": 0, "step": 171}
+{"t": 1792557662.7708454, "session_id": "1792557646_a580a7", "event": "intervention_start", "round": 0, "step": 276}
+{"t": 1792557665.191833, "session_id": "1792557646_a580a7", "event": "intervention_end", "round": 0, "step": 324}
+{"t": 1792557671.5545635, "session_id": "1792557646_a580a7", "event": "intervention_start", "round": 0, "step": 450}
+{"t": 1792557685.4925244, "session_id": "1792557646_a580a7", "event": "intervention_end", "round": 0, "step": 726}
+{"t": 1792557702.823578, "session_id": "1792557646_a580a7", "event": "intervention_start", "round": 0, "step": 1069}
+{"t": 1792557708.2317169, "session_id": "1792557646_a580a7", "event": "intervention_end", "round": 0, "step": 1176}
+{"t": 1792557711.9135401, "session_id": "1792557646_a580a7", "event": "intervention_start", "round": 0, "step": 1249}

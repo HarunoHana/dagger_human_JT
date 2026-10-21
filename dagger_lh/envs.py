@@ -95,6 +95,19 @@ class RobosuiteEnv:
     # ------------------------------------------------------------------ stepping
     def reset(self) -> Dict[str, np.ndarray]:
         raw = self.env.reset()
+
+        # Hide unused visual objects in PickPlaceCan
+        if self.cfg.env_name == "PickPlaceCan":
+            sim = self.env.sim
+
+            for name in (
+                "VisualMilk_g0",
+                "VisualBread_g0",
+                "VisualCereal_g0",
+            ):
+                geom_id = sim.model.geom_name2id(name)
+                sim.model.geom_rgba[geom_id, 3] = 0.0
+
         self._last_raw_obs = raw
         self.t = 0
         return self._extract(raw)

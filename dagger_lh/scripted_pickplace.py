@@ -1,6 +1,7 @@
-
 import numpy as np
 from scipy.spatial.transform import Rotation
+
+from .motion_variation import choose_motion
 
 
 class ScriptedPickPlace:
@@ -23,8 +24,19 @@ class ScriptedPickPlace:
         self.grasp_can_height = None
         self.grasp_distance = None
         self.lift_start = None
+        self.locked_rotation = None
 
         self.debug_count = 0
+
+        # One style per rollout (not one random choice per action).
+        self.motion = choose_motion()
+        self.approach_waypoint_reached = False
+        self.transport_waypoint_reached = False
+        self.transport_waypoint = None
+        self.recovery_mode = False
+        self.stage0_timeout = 110
+        self.stage5_waypoint_timeout = 110
+        print(f"MOTION: {self.motion.name}")
 
     def reset_rollout(self):
         self.reset()
@@ -167,16 +179,29 @@ class ScriptedPickPlace:
         self.grasp_can_height = None
         self.grasp_distance = None
         self.lift_start = None
+        # On retries, skip decorative waypoints and use the tested direct route.
+        self.recovery_mode = True
+        self.approach_waypoint_reached = True
+        self.transport_waypoint_reached = True
+        self.transport_waypoint = None
 
         # Do not overwrite the original wrist pose.
         self.change_stage(0, "Replanning grasp")
 
     def resume_from_human(self):
+        # Human may place robot in an unreachable pose for decorative waypoints.
+        # Resume via the original direct route instead of forcing side detours.
+        self.recovery_mode = True
+        self.approach_waypoint_reached = True
+        self.transport_waypoint_reached = True
+        self.transport_waypoint = None
         hand, can, hand_rot, axis, tilt = self.observe()
 
         contact = self.contact_grasp()
 
         if contact is True:
+            # Preserve the human's current wrist orientation during lift.
+            self.locked_rotation = hand_rot
             # Check lifting before transporting.
             self.grasp_position = hand.copy()
             self.grasp_can_height = float(can[2])
@@ -217,9 +242,7 @@ class ScriptedPickPlace:
         )
 
         # During transportation, preserve the grasp pose.
-        if self.stage >= 4 and hasattr(
-            self, "locked_rotation"
-        ):
+        if self.stage >= 4 and self.locked_rotation is not None:
             desired_rot = self.locked_rotation
 
         rotation_error = (
@@ -234,20 +257,31 @@ class ScriptedPickPlace:
         if self.stage == 0:
             gripper = -1.0
 
-            target = can + np.array([
-                0.0, 0.0, 0.16
-            ])
-
-            position_ready = (
-                np.linalg.norm(target - hand) < 0.025
-            )
-
-            rotation_ready = angle_error < 0.10
-
-            if position_ready and rotation_ready:
-                self.change_stage(
-                    1, "Aligned above can"
-                )
+            # A safe lateral waypoint ABOVE the can; final pose unchanged.
+            final_target = can + np.array([0.0, 0.0, 0.16])
+            offset = np.asarray(self.motion.approach_offset_xy)
+            if (
+                np.any(offset)
+                and not self.recovery_mode
+                and not self.approach_waypoint_reached
+            ):
+                target = final_target + np.array([*offset, 0.03])
+                if np.linalg.norm(target - hand) < 0.030:
+                    self.approach_waypoint_reached = True
+                elif self.steps >= self.stage0_timeout:
+                    print("MOTION: approach waypoint timeout -> direct approach")
+                    self.approach_waypoint_reached = True
+            else:
+                target = final_target
+                position_ready = np.linalg.norm(target - hand) < 0.025
+                rotation_ready = angle_error < 0.10
+                if position_ready and rotation_ready:
+                    self.change_stage(1, "Aligned above can")
+                elif self.steps % 120 == 0:
+                    print(
+                        f"APPROACH: pos_error={np.linalg.norm(target - hand):.3f} "
+                        f"rot_error_deg={np.degrees(angle_error):.1f}"
+                    )
 
         # -------------------------------
         # 1: Lower with gripper open
@@ -287,7 +321,7 @@ class ScriptedPickPlace:
             gripper = 1.0
             target = hand.copy()
 
-            if self.steps >= 35:
+            if self.steps >= self.motion.grasp_close_steps:
                 self.grasp_position = hand.copy()
                 self.grasp_can_height = float(can[2])
                 self.grasp_distance = float(distance)
@@ -386,32 +420,39 @@ class ScriptedPickPlace:
         elif self.stage == 5:
             gripper = 1.0
 
-            # Keep the can safely above the bin.
-            target = bin_pos + np.array([
-                0.0, 0.0, 0.20
-            ])
-
+            final_target = bin_pos + np.array([0.0, 0.0, 0.20])
             contact = self.contact_grasp()
-
-            # Prioritize horizontal positioning.
-            xy_error = np.linalg.norm(
-                (target - hand)[:2]
-            )
 
             if contact is False or distance > 0.18:
                 self.retry("Can lost during transport")
-
-            elif xy_error < 0.04:
-                self.change_stage(
-                    6, "Reached bin horizontally"
-                )
-
-            elif self.steps % 100 == 0:
-                print(
-                    f"TRANSPORT: XY error={xy_error:.3f}, "
-                    f"Hand={np.round(hand, 3)}, "
-                    f"Target={np.round(target, 3)}"
-                )
+            else:
+                offset = np.asarray(self.motion.transport_offset_xy)
+                if (
+                    np.any(offset)
+                    and not self.recovery_mode
+                    and not self.transport_waypoint_reached
+                ):
+                    # Calculate ONCE, not every frame: otherwise target moves.
+                    if self.transport_waypoint is None:
+                        midpoint = (hand[:2] + final_target[:2]) / 2
+                        self.transport_waypoint = np.array([
+                            midpoint[0] + offset[0],
+                            midpoint[1] + offset[1],
+                            max(hand[2], final_target[2]) + 0.025,
+                        ])
+                    target = self.transport_waypoint
+                    if np.linalg.norm(target - hand) < 0.040:
+                        self.transport_waypoint_reached = True
+                    elif self.steps >= self.stage5_waypoint_timeout:
+                        print("MOTION: transport waypoint timeout -> direct transport")
+                        self.transport_waypoint_reached = True
+                else:
+                    target = final_target
+                    xy_error = np.linalg.norm((target - hand)[:2])
+                    if xy_error < 0.04:
+                        self.change_stage(6, "Reached bin horizontally")
+                    elif self.steps % 100 == 0:
+                        print(f"TRANSPORT: XY error={xy_error:.3f}")
 
         # -------------------------------
         # 6: Lower into the bin
@@ -474,8 +515,14 @@ class ScriptedPickPlace:
         # -------------------------------
         position_error = target - hand
 
+        # Change speed only during clear-space travel stages.
+        travel_gain = (
+            self.motion.transit_gain
+            if self.stage in (0, 5) and not self.recovery_mode
+            else 5.0
+        )
         action[:3] = np.clip(
-            position_error * 5.0,
+            position_error * travel_gain,
             -0.5,
             0.5
         )
@@ -497,4 +544,3 @@ class ScriptedPickPlace:
             )
 
         return action
-
