@@ -1,0 +1,21 @@
+{
+  "participant_id": "test_I",
+  "condition": "yoked",
+  "two_phase": false,
+  "phase2_condition": null,
+  "n_rounds": 4,
+  "delta_intervention_rate": -0.008021390374331552,
+  "delta_engagement_rate": 0.0,
+  "delta_keypresses_per_step": 0.05769473116942337,
+  "delta_passivity": -0.5,
+  "delta_latency_to_intervene": NaN,
+  "rel_decline_intervention": 1.0,
+  "rel_decline_engagement": NaN,
+  "rel_decline_keypresses": -1.0,
+  "total_giveups": 4.0,
+  "baseline_window": 2.0,
+  "index": 0.0,
+  "mode": "dagger",
+  "dataset": "data/sessions\\test_I_dagger_20261022_020716\\demos.hdf5",
+  "session_dir": "data/sessions\\test_I_dagger_20261022_020716"
+}

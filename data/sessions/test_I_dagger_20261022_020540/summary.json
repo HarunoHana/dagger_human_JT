@@ -1,0 +1,10 @@
+{
+  "participant_id": "test_I",
+  "condition": "yoked",
+  "two_phase": false,
+  "phase2_condition": null,
+  "n_rounds": 0,
+  "mode": "dagger",
+  "dataset": "data/sessions\\test_I_dagger_20261022_020540\\demos.hdf5",
+  "session_dir": "data/sessions\\test_I_dagger_20261022_020540"
+}

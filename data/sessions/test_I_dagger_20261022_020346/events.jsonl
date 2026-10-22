@@ -1,0 +1,20 @@
+{"t": 1792649026.0902097, "session_id": "1792649026_baba53", "event": "session_start", "participant_id": "test_I", "condition": "yoked", "two_phase": false, "mode": "dagger", "algo": "bc_rnn", "env": "PickPlaceCan", "platform": "Windows-10-10.0.26200-SP0", "python": "3.10.21"}
+{"t": 1792649031.1450975, "session_id": "1792649026_baba53", "event": "round_start", "round": 0, "phase": 1, "condition": "yoked", "commit_update": false, "action_noise_std": 0.0, "reason": "scripted competence 8% from the ladder"}
+{"t": 1792649031.157608, "session_id": "1792649026_baba53", "event": "ladder_rung", "round": 0, "target": 0.08, "rung_success": 0.08, "rung_noise": 0.0, "checkpoint": "bc_rnn_PickPlaceCan_p003.pth"}
+{"t": 1792649034.5307567, "session_id": "1792649026_baba53", "event": "discard", "round": 0, "step": 19}
+{"t": 1792649034.531757, "session_id": "1792649026_baba53", "event": "round_retry", "round": 0, "rollout": 0, "reason": "backspace_discard"}
+{"t": 1792649036.5463064, "session_id": "1792649026_baba53", "event": "discard", "round": 0, "step": 14}
+{"t": 1792649036.5473065, "session_id": "1792649026_baba53", "event": "round_retry", "round": 0, "rollout": 0, "reason": "backspace_discard"}
+{"t": 1792649038.4539185, "session_id": "1792649026_baba53", "event": "giveup", "round": 0, "step": 30}
+{"t": 1792649053.5187461, "session_id": "1792649026_baba53", "event": "policy_update", "round": 0, "committed": false, "note": "pretrained checkpoint switching; no model training"}
+{"t": 1792649060.397084, "session_id": "1792649026_baba53", "event": "survey", "round": 0, "question1": 1, "question2": 1, "question3": 1, "question4": 1, "question5": 1}
+{"t": 1792649060.3980892, "session_id": "1792649026_baba53", "event": "round_complete", "round_index": 0, "phase": 1, "condition": "yoked", "contingent": false, "n_rollouts": 1, "n_success": 0, "steps_total": 30, "human_steps": 0, "engaged_steps": 0, "keypresses": 1, "n_interventions": 0, "first_intervention_step": null, "time_to_first_intervention": null, "idle_steps": 0, "giveup_events": 1, "discard_events": 0, "episode_seconds": 1.496873378753662, "success_rate": 0.0, "intervention_rate": 0.0, "engagement_rate": 0.0, "passivity": 0.0, "keypresses_per_step": 0.03333333333333333, "survey_question1": 1, "survey_question2": 1, "survey_question3": 1, "survey_question4": 1, "survey_question5": 1, "train_committed": false, "train_note": "pretrained checkpoint switching; no model training"}
+{"t": 1792649060.4010868, "session_id": "1792649026_baba53", "event": "round_start", "round": 1, "phase": 1, "condition": "yoked", "commit_update": false, "action_noise_std": 0.0, "reason": "scripted competence 18% from the ladder"}
+{"t": 1792649060.4115853, "session_id": "1792649026_baba53", "event": "ladder_rung", "round": 1, "target": 0.18, "rung_success": 0.18, "rung_noise": 0.0, "checkpoint": "bc_rnn_PickPlaceCan_p007.pth"}
+{"t": 1792649061.5549986, "session_id": "1792649026_baba53", "event": "manual_success_ignored", "round": 1, "step": 23}
+{"t": 1792649062.262845, "session_id": "1792649026_baba53", "event": "manual_success_ignored", "round": 1, "step": 37}
+{"t": 1792649062.7676742, "session_id": "1792649026_baba53", "event": "manual_success_ignored", "round": 1, "step": 47}
+{"t": 1792649071.710024, "session_id": "1792649026_baba53", "event": "intervention_start", "round": 1, "step": 224}
+{"t": 1792649072.870192, "session_id": "1792649026_baba53", "event": "manual_success_ignored", "round": 1, "step": 247}
+{"t": 1792649075.3170435, "session_id": "1792649026_baba53", "event": "aborted", "where": "dagger_mode"}
+{"t": 1792649075.3190558, "session_id": "1792649026_baba53", "event": "session_end", "participant_id": "test_I", "condition": "yoked", "two_phase": false, "phase2_condition": null, "n_rounds": 1, "mode": "dagger", "dataset": "data/sessions\\test_I_dagger_20261022_020346\\demos.hdf5", "session_dir": "data/sessions\\test_I_dagger_20261022_020346"}

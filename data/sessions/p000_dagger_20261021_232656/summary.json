@@ -1,0 +1,10 @@
+{
+  "participant_id": "p000",
+  "condition": "responsive",
+  "two_phase": false,
+  "phase2_condition": null,
+  "n_rounds": 0,
+  "mode": "dagger",
+  "dataset": "data/sessions\\p000_dagger_20261021_232656\\demos.hdf5",
+  "session_dir": "data/sessions\\p000_dagger_20261021_232656"
+}

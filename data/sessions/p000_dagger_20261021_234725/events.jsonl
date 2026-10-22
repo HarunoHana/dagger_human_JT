@@ -1,0 +1,4 @@
+{"t": 1792640845.5173614, "session_id": "1792640845_cb4918", "event": "session_start", "participant_id": "p000", "condition": "responsive", "two_phase": false, "mode": "dagger", "algo": "bc_rnn", "env": "PickPlaceCan", "platform": "Windows-10-10.0.26200-SP0", "python": "3.10.21"}
+{"t": 1792640848.3688416, "session_id": "1792640845_cb4918", "event": "round_start", "round": 0, "phase": 1, "condition": "responsive", "commit_update": true, "action_noise_std": 0.0, "reason": "corrections applied via LoRA update"}
+{"t": 1792640865.1250834, "session_id": "1792640845_cb4918", "event": "aborted", "where": "dagger_mode"}
+{"t": 1792640865.1290848, "session_id": "1792640845_cb4918", "event": "session_end", "participant_id": "p000", "condition": "responsive", "two_phase": false, "phase2_condition": null, "n_rounds": 0, "mode": "dagger", "dataset": "data/sessions\\p000_dagger_20261021_234725\\demos.hdf5", "session_dir": "data/sessions\\p000_dagger_20261021_234725"}

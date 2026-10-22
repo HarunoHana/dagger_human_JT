@@ -1,0 +1,740 @@
+========== TESTING p000 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p000.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['robot0_eef_quat', 'robot0_gripper_qpos', 'robot0_eef_pos', 'object']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 0.00
+    eval 2/50  running success 0.00
+    eval 3/50  running success 0.00
+    eval 4/50  running success 0.00
+    eval 5/50  running success 0.00
+    eval 6/50  running success 0.00
+    eval 7/50  running success 0.00
+    eval 8/50  running success 0.00
+    eval 9/50  running success 0.00
+    eval 10/50  running success 0.00
+    eval 11/50  running success 0.00
+    eval 12/50  running success 0.00
+    eval 13/50  running success 0.00
+    eval 14/50  running success 0.00
+    eval 15/50  running success 0.00
+    eval 16/50  running success 0.00
+    eval 17/50  running success 0.00
+    eval 18/50  running success 0.00
+    eval 19/50  running success 0.00
+    eval 20/50  running success 0.00
+    eval 21/50  running success 0.00
+    eval 22/50  running success 0.00
+    eval 23/50  running success 0.00
+    eval 24/50  running success 0.00
+    eval 25/50  running success 0.00
+    eval 26/50  running success 0.00
+    eval 27/50  running success 0.00
+    eval 28/50  running success 0.00
+    eval 29/50  running success 0.00
+    eval 30/50  running success 0.00
+    eval 31/50  running success 0.00
+    eval 32/50  running success 0.00
+    eval 33/50  running success 0.00
+    eval 34/50  running success 0.00
+    eval 35/50  running success 0.00
+    eval 36/50  running success 0.00
+    eval 37/50  running success 0.00
+    eval 38/50  running success 0.00
+    eval 39/50  running success 0.00
+    eval 40/50  running success 0.00
+    eval 41/50  running success 0.00
+    eval 42/50  running success 0.00
+    eval 43/50  running success 0.00
+    eval 44/50  running success 0.00
+    eval 45/50  running success 0.00
+    eval 46/50  running success 0.00
+    eval 47/50  running success 0.00
+    eval 48/50  running success 0.00
+    eval 49/50  running success 0.00
+    eval 50/50  running success 0.00
+
+========== EVALUATION RESULT ==========
+Successes: 0/50
+Failures: 50/50
+Success rate: 0.0%
+Mean steps: 500.0
+=======================================
+========== TESTING p003 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p003.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['object', 'robot0_eef_pos', 'robot0_eef_quat', 'robot0_gripper_qpos']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 0.00
+    eval 2/50  running success 0.00
+    eval 3/50  running success 0.00
+    eval 4/50  running success 0.00
+    eval 5/50  running success 0.00
+    eval 6/50  running success 0.00
+    eval 7/50  running success 0.00
+    eval 8/50  running success 0.00
+    eval 9/50  running success 0.11
+    eval 10/50  running success 0.10
+    eval 11/50  running success 0.09
+    eval 12/50  running success 0.08
+    eval 13/50  running success 0.08
+    eval 14/50  running success 0.07
+    eval 15/50  running success 0.07
+    eval 16/50  running success 0.06
+    eval 17/50  running success 0.06
+    eval 18/50  running success 0.06
+    eval 19/50  running success 0.05
+    eval 20/50  running success 0.05
+    eval 21/50  running success 0.05
+    eval 22/50  running success 0.05
+    eval 23/50  running success 0.04
+    eval 24/50  running success 0.04
+    eval 25/50  running success 0.04
+    eval 26/50  running success 0.04
+    eval 27/50  running success 0.04
+    eval 28/50  running success 0.04
+    eval 29/50  running success 0.03
+    eval 30/50  running success 0.03
+    eval 31/50  running success 0.03
+    eval 32/50  running success 0.03
+    eval 33/50  running success 0.03
+    eval 34/50  running success 0.03
+    eval 35/50  running success 0.03
+    eval 36/50  running success 0.03
+    eval 37/50  running success 0.03
+    eval 38/50  running success 0.03
+    eval 39/50  running success 0.03
+    eval 40/50  running success 0.03
+    eval 41/50  running success 0.02
+    eval 42/50  running success 0.02
+    eval 43/50  running success 0.02
+    eval 44/50  running success 0.02
+    eval 45/50  running success 0.02
+    eval 46/50  running success 0.02
+    eval 47/50  running success 0.02
+    eval 48/50  running success 0.02
+    eval 49/50  running success 0.02
+    eval 50/50  running success 0.02
+
+========== EVALUATION RESULT ==========
+Successes: 1/50
+Failures: 49/50
+Success rate: 2.0%
+Mean steps: 493.5
+=======================================
+========== TESTING p007 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p007.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['robot0_gripper_qpos', 'robot0_eef_pos', 'object', 'robot0_eef_quat']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 0.00
+    eval 2/50  running success 0.00
+    eval 3/50  running success 0.33
+    eval 4/50  running success 0.25
+    eval 5/50  running success 0.20
+    eval 6/50  running success 0.17
+    eval 7/50  running success 0.14
+    eval 8/50  running success 0.12
+    eval 9/50  running success 0.11
+    eval 10/50  running success 0.20
+    eval 11/50  running success 0.18
+    eval 12/50  running success 0.17
+    eval 13/50  running success 0.15
+    eval 14/50  running success 0.14
+    eval 15/50  running success 0.20
+    eval 16/50  running success 0.25
+    eval 17/50  running success 0.24
+    eval 18/50  running success 0.22
+    eval 19/50  running success 0.21
+    eval 20/50  running success 0.25
+    eval 21/50  running success 0.24
+    eval 22/50  running success 0.23
+    eval 23/50  running success 0.22
+    eval 24/50  running success 0.21
+    eval 25/50  running success 0.20
+    eval 26/50  running success 0.19
+    eval 27/50  running success 0.19
+    eval 28/50  running success 0.18
+    eval 29/50  running success 0.17
+    eval 30/50  running success 0.17
+    eval 31/50  running success 0.16
+    eval 32/50  running success 0.16
+    eval 33/50  running success 0.15
+    eval 34/50  running success 0.15
+    eval 35/50  running success 0.14
+    eval 36/50  running success 0.14
+    eval 37/50  running success 0.14
+    eval 38/50  running success 0.13
+    eval 39/50  running success 0.13
+    eval 40/50  running success 0.12
+    eval 41/50  running success 0.12
+    eval 42/50  running success 0.12
+    eval 43/50  running success 0.12
+    eval 44/50  running success 0.14
+    eval 45/50  running success 0.13
+    eval 46/50  running success 0.13
+    eval 47/50  running success 0.13
+    eval 48/50  running success 0.15
+    eval 49/50  running success 0.14
+    eval 50/50  running success 0.14
+
+========== EVALUATION RESULT ==========
+Successes: 7/50
+Failures: 43/50
+Success rate: 14.0%
+Mean steps: 454.7
+=======================================
+========== TESTING p027 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p027.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['object', 'robot0_eef_pos', 'robot0_gripper_qpos', 'robot0_eef_quat']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 0.00
+    eval 2/50  running success 0.00
+    eval 3/50  running success 0.00
+    eval 4/50  running success 0.00
+    eval 5/50  running success 0.00
+    eval 6/50  running success 0.00
+    eval 7/50  running success 0.14
+    eval 8/50  running success 0.12
+    eval 9/50  running success 0.11
+    eval 10/50  running success 0.10
+    eval 11/50  running success 0.09
+    eval 12/50  running success 0.08
+    eval 13/50  running success 0.15
+    eval 14/50  running success 0.14
+    eval 15/50  running success 0.20
+    eval 16/50  running success 0.25
+    eval 17/50  running success 0.24
+    eval 18/50  running success 0.22
+    eval 19/50  running success 0.26
+    eval 20/50  running success 0.25
+    eval 21/50  running success 0.24
+    eval 22/50  running success 0.27
+    eval 23/50  running success 0.26
+    eval 24/50  running success 0.25
+    eval 25/50  running success 0.24
+    eval 26/50  running success 0.27
+    eval 27/50  running success 0.26
+    eval 28/50  running success 0.25
+    eval 29/50  running success 0.28
+    eval 30/50  running success 0.27
+    eval 31/50  running success 0.26
+    eval 32/50  running success 0.25
+    eval 33/50  running success 0.24
+    eval 34/50  running success 0.24
+    eval 35/50  running success 0.23
+    eval 36/50  running success 0.22
+    eval 37/50  running success 0.22
+    eval 38/50  running success 0.21
+    eval 39/50  running success 0.21
+    eval 40/50  running success 0.23
+    eval 41/50  running success 0.22
+    eval 42/50  running success 0.21
+    eval 43/50  running success 0.21
+    eval 44/50  running success 0.20
+    eval 45/50  running success 0.22
+    eval 46/50  running success 0.22
+    eval 47/50  running success 0.21
+    eval 48/50  running success 0.21
+    eval 49/50  running success 0.22
+    eval 50/50  running success 0.22
+
+========== EVALUATION RESULT ==========
+Successes: 11/50
+Failures: 39/50
+Success rate: 22.0%
+Mean steps: 429.0
+=======================================
+========== TESTING p036 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p036.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['robot0_eef_pos', 'robot0_eef_quat', 'object', 'robot0_gripper_qpos']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 0.00
+    eval 2/50  running success 0.50
+    eval 3/50  running success 0.33
+    eval 4/50  running success 0.25
+    eval 5/50  running success 0.20
+    eval 6/50  running success 0.33
+    eval 7/50  running success 0.43
+    eval 8/50  running success 0.38
+    eval 9/50  running success 0.33
+    eval 10/50  running success 0.30
+    eval 11/50  running success 0.27
+    eval 12/50  running success 0.25
+    eval 13/50  running success 0.23
+    eval 14/50  running success 0.21
+    eval 15/50  running success 0.20
+    eval 16/50  running success 0.19
+    eval 17/50  running success 0.18
+    eval 18/50  running success 0.17
+    eval 19/50  running success 0.16
+    eval 20/50  running success 0.15
+    eval 21/50  running success 0.14
+    eval 22/50  running success 0.18
+    eval 23/50  running success 0.17
+    eval 24/50  running success 0.17
+    eval 25/50  running success 0.16
+    eval 26/50  running success 0.15
+    eval 27/50  running success 0.15
+    eval 28/50  running success 0.14
+    eval 29/50  running success 0.14
+    eval 30/50  running success 0.13
+    eval 31/50  running success 0.16
+    eval 32/50  running success 0.19
+    eval 33/50  running success 0.18
+    eval 34/50  running success 0.18
+    eval 35/50  running success 0.17
+    eval 36/50  running success 0.17
+    eval 37/50  running success 0.16
+    eval 38/50  running success 0.16
+    eval 39/50  running success 0.15
+    eval 40/50  running success 0.17
+    eval 41/50  running success 0.20
+    eval 42/50  running success 0.19
+    eval 43/50  running success 0.19
+    eval 44/50  running success 0.18
+    eval 45/50  running success 0.18
+    eval 46/50  running success 0.17
+    eval 47/50  running success 0.17
+    eval 48/50  running success 0.17
+    eval 49/50  running success 0.18
+    eval 50/50  running success 0.18
+
+========== EVALUATION RESULT ==========
+Successes: 9/50
+Failures: 41/50
+Success rate: 18.0%
+Mean steps: 442.3
+=======================================
+========== TESTING p039 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p039.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['robot0_eef_quat', 'object', 'robot0_gripper_qpos', 'robot0_eef_pos']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 0.00
+    eval 2/50  running success 0.00
+    eval 3/50  running success 0.00
+    eval 4/50  running success 0.00
+    eval 5/50  running success 0.00
+    eval 6/50  running success 0.00
+    eval 7/50  running success 0.00
+    eval 8/50  running success 0.00
+    eval 9/50  running success 0.00
+    eval 10/50  running success 0.10
+    eval 11/50  running success 0.18
+    eval 12/50  running success 0.25
+    eval 13/50  running success 0.31
+    eval 14/50  running success 0.29
+    eval 15/50  running success 0.33
+    eval 16/50  running success 0.31
+    eval 17/50  running success 0.29
+    eval 18/50  running success 0.33
+    eval 19/50  running success 0.32
+    eval 20/50  running success 0.30
+    eval 21/50  running success 0.29
+    eval 22/50  running success 0.27
+    eval 23/50  running success 0.26
+    eval 24/50  running success 0.25
+    eval 25/50  running success 0.28
+    eval 26/50  running success 0.31
+    eval 27/50  running success 0.30
+    eval 28/50  running success 0.29
+    eval 29/50  running success 0.28
+    eval 30/50  running success 0.27
+    eval 31/50  running success 0.26
+    eval 32/50  running success 0.25
+    eval 33/50  running success 0.27
+    eval 34/50  running success 0.26
+    eval 35/50  running success 0.26
+    eval 36/50  running success 0.25
+    eval 37/50  running success 0.27
+    eval 38/50  running success 0.26
+    eval 39/50  running success 0.26
+    eval 40/50  running success 0.25
+    eval 41/50  running success 0.24
+    eval 42/50  running success 0.24
+    eval 43/50  running success 0.23
+    eval 44/50  running success 0.23
+    eval 45/50  running success 0.22
+    eval 46/50  running success 0.22
+    eval 47/50  running success 0.21
+    eval 48/50  running success 0.23
+    eval 49/50  running success 0.22
+    eval 50/50  running success 0.24
+
+========== EVALUATION RESULT ==========
+Successes: 12/50
+Failures: 38/50
+Success rate: 24.0%
+Mean steps: 423.1
+=======================================
+========== TESTING p043 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p043.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['robot0_eef_quat', 'robot0_eef_pos', 'object', 'robot0_gripper_qpos']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 1.00
+    eval 2/50  running success 1.00
+    eval 3/50  running success 0.67
+    eval 4/50  running success 0.75
+    eval 5/50  running success 0.60
+    eval 6/50  running success 0.50
+    eval 7/50  running success 0.43
+    eval 8/50  running success 0.38
+    eval 9/50  running success 0.44
+    eval 10/50  running success 0.40
+    eval 11/50  running success 0.36
+    eval 12/50  running success 0.33
+    eval 13/50  running success 0.38
+    eval 14/50  running success 0.43
+    eval 15/50  running success 0.47
+    eval 16/50  running success 0.50
+    eval 17/50  running success 0.53
+    eval 18/50  running success 0.50
+    eval 19/50  running success 0.47
+    eval 20/50  running success 0.45
+    eval 21/50  running success 0.43
+    eval 22/50  running success 0.41
+    eval 23/50  running success 0.39
+    eval 24/50  running success 0.38
+    eval 25/50  running success 0.40
+    eval 26/50  running success 0.38
+    eval 27/50  running success 0.37
+    eval 28/50  running success 0.39
+    eval 29/50  running success 0.41
+    eval 30/50  running success 0.40
+    eval 31/50  running success 0.39
+    eval 32/50  running success 0.38
+    eval 33/50  running success 0.36
+    eval 34/50  running success 0.35
+    eval 35/50  running success 0.34
+    eval 36/50  running success 0.33
+    eval 37/50  running success 0.32
+    eval 38/50  running success 0.32
+    eval 39/50  running success 0.31
+    eval 40/50  running success 0.30
+    eval 41/50  running success 0.29
+    eval 42/50  running success 0.29
+    eval 43/50  running success 0.28
+    eval 44/50  running success 0.27
+    eval 45/50  running success 0.27
+    eval 46/50  running success 0.26
+    eval 47/50  running success 0.28
+    eval 48/50  running success 0.29
+    eval 49/50  running success 0.29
+    eval 50/50  running success 0.30
+
+========== EVALUATION RESULT ==========
+Successes: 15/50
+Failures: 35/50
+Success rate: 30.0%
+Mean steps: 397.6
+=======================================
+========== TESTING p052 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p052.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['robot0_gripper_qpos', 'object', 'robot0_eef_pos', 'robot0_eef_quat']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 1.00
+    eval 2/50  running success 1.00
+    eval 3/50  running success 1.00
+    eval 4/50  running success 1.00
+    eval 5/50  running success 0.80
+    eval 6/50  running success 0.67
+    eval 7/50  running success 0.71
+    eval 8/50  running success 0.62
+    eval 9/50  running success 0.56
+    eval 10/50  running success 0.60
+    eval 11/50  running success 0.55
+    eval 12/50  running success 0.58
+    eval 13/50  running success 0.54
+    eval 14/50  running success 0.57
+    eval 15/50  running success 0.53
+    eval 16/50  running success 0.50
+    eval 17/50  running success 0.53
+    eval 18/50  running success 0.56
+    eval 19/50  running success 0.53
+    eval 20/50  running success 0.50
+    eval 21/50  running success 0.52
+    eval 22/50  running success 0.50
+    eval 23/50  running success 0.48
+    eval 24/50  running success 0.46
+    eval 25/50  running success 0.48
+    eval 26/50  running success 0.46
+    eval 27/50  running success 0.44
+    eval 28/50  running success 0.43
+    eval 29/50  running success 0.45
+    eval 30/50  running success 0.47
+    eval 31/50  running success 0.48
+    eval 32/50  running success 0.50
+    eval 33/50  running success 0.52
+    eval 34/50  running success 0.53
+    eval 35/50  running success 0.51
+    eval 36/50  running success 0.50
+    eval 37/50  running success 0.51
+    eval 38/50  running success 0.50
+    eval 39/50  running success 0.51
+    eval 40/50  running success 0.53
+    eval 41/50  running success 0.54
+    eval 42/50  running success 0.52
+    eval 43/50  running success 0.51
+    eval 44/50  running success 0.52
+    eval 45/50  running success 0.53
+    eval 46/50  running success 0.52
+    eval 47/50  running success 0.51
+    eval 48/50  running success 0.52
+    eval 49/50  running success 0.53
+    eval 50/50  running success 0.52
+
+========== EVALUATION RESULT ==========
+Successes: 26/50
+Failures: 24/50
+Success rate: 52.0%
+Mean steps: 311.8
+=======================================
+========== TESTING p056 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p056.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['robot0_eef_pos', 'robot0_eef_quat', 'robot0_gripper_qpos', 'object']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 1.00
+    eval 2/50  running success 1.00
+    eval 3/50  running success 1.00
+    eval 4/50  running success 1.00
+    eval 5/50  running success 1.00
+    eval 6/50  running success 1.00
+    eval 7/50  running success 0.86
+    eval 8/50  running success 0.88
+    eval 9/50  running success 0.89
+    eval 10/50  running success 0.80
+    eval 11/50  running success 0.82
+    eval 12/50  running success 0.75
+    eval 13/50  running success 0.77
+    eval 14/50  running success 0.79
+    eval 15/50  running success 0.80
+    eval 16/50  running success 0.75
+    eval 17/50  running success 0.76
+    eval 18/50  running success 0.78
+    eval 19/50  running success 0.79
+    eval 20/50  running success 0.80
+    eval 21/50  running success 0.81
+    eval 22/50  running success 0.82
+    eval 23/50  running success 0.83
+    eval 24/50  running success 0.79
+    eval 25/50  running success 0.76
+    eval 26/50  running success 0.77
+    eval 27/50  running success 0.74
+    eval 28/50  running success 0.71
+    eval 29/50  running success 0.72
+    eval 30/50  running success 0.73
+    eval 31/50  running success 0.74
+    eval 32/50  running success 0.75
+    eval 33/50  running success 0.76
+    eval 34/50  running success 0.76
+    eval 35/50  running success 0.74
+    eval 36/50  running success 0.75
+    eval 37/50  running success 0.73
+    eval 38/50  running success 0.74
+    eval 39/50  running success 0.72
+    eval 40/50  running success 0.72
+    eval 41/50  running success 0.71
+    eval 42/50  running success 0.69
+    eval 43/50  running success 0.70
+    eval 44/50  running success 0.70
+    eval 45/50  running success 0.69
+    eval 46/50  running success 0.70
+    eval 47/50  running success 0.70
+    eval 48/50  running success 0.71
+    eval 49/50  running success 0.71
+    eval 50/50  running success 0.70
+
+========== EVALUATION RESULT ==========
+Successes: 35/50
+Failures: 15/50
+Success rate: 70.0%
+Mean steps: 239.9
+=======================================
+========== TESTING p063 ==========
+[robosuite WARNING] No private macro file found! (macros.py:57)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:58)
+[robosuite WARNING] To setup, run: python C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite/scripts/setup_macros.py (macros.py:59)
+[robosuite WARNING] Could not import robosuite_models. Some robots may not be available. If you want to use these robots, please install robosuite_models from source (https://github.com/ARISE-Initiative/robosuite_models) or through pip install. (__init__.py:30)
+[robosuite WARNING] Could not load the mink-based whole-body IK. Make sure you install related import properly, otherwise you will not be able to use the default IK controller setting for GR1 robot. (__init__.py:40)
+[robosuite INFO] Loading controller configuration from: C:\Users\Admin\miniconda3\envs\dagger_learned_helplessness\lib\site-packages\robosuite\controllers\config\robots\default_panda.json (composite_controller_factory.py:121)
+Checkpoint: data\checkpoints\pickplace\ladder\bc_rnn_PickPlaceCan_p063.pth
+Environment: PickPlaceCan
+Episodes: 50
+Max steps per episode: 500
+Seed: 0
+
+============= Initialized Observation Utils with Obs Spec =============
+
+using obs modality: low_dim with keys: ['robot0_gripper_qpos', 'robot0_eef_pos', 'object', 'robot0_eef_quat']
+using obs modality: rgb with keys: []
+    eval 1/50  running success 1.00
+    eval 2/50  running success 1.00
+    eval 3/50  running success 1.00
+    eval 4/50  running success 1.00
+    eval 5/50  running success 1.00
+    eval 6/50  running success 0.83
+    eval 7/50  running success 0.71
+    eval 8/50  running success 0.75
+    eval 9/50  running success 0.78
+    eval 10/50  running success 0.80
+    eval 11/50  running success 0.82
+    eval 12/50  running success 0.75
+    eval 13/50  running success 0.77
+    eval 14/50  running success 0.79
+    eval 15/50  running success 0.80
+    eval 16/50  running success 0.81
+    eval 17/50  running success 0.82
+    eval 18/50  running success 0.78
+    eval 19/50  running success 0.79
+    eval 20/50  running success 0.80
+    eval 21/50  running success 0.81
+    eval 22/50  running success 0.77
+    eval 23/50  running success 0.74
+    eval 24/50  running success 0.71
+    eval 25/50  running success 0.72
+    eval 26/50  running success 0.73
+    eval 27/50  running success 0.74
+    eval 28/50  running success 0.71
+    eval 29/50  running success 0.69
+    eval 30/50  running success 0.67
+    eval 31/50  running success 0.68
+    eval 32/50  running success 0.66
+    eval 33/50  running success 0.67
+    eval 34/50  running success 0.65
+    eval 35/50  running success 0.66
+    eval 36/50  running success 0.67
+    eval 37/50  running success 0.65
+    eval 38/50  running success 0.66
+    eval 39/50  running success 0.64
+    eval 40/50  running success 0.62
+    eval 41/50  running success 0.61
+    eval 42/50  running success 0.62
+    eval 43/50  running success 0.63
+    eval 44/50  running success 0.64
+    eval 45/50  running success 0.64
+    eval 46/50  running success 0.65
+    eval 47/50  running success 0.66
+    eval 48/50  running success 0.67
+    eval 49/50  running success 0.67
+    eval 50/50  running success 0.68
+
+========== EVALUATION RESULT ==========
+Successes: 34/50
+Failures: 16/50
+Success rate: 68.0%
+Mean steps: 245.4
+=======================================

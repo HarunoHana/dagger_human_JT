@@ -115,6 +115,11 @@ class RobosuiteEnv:
     def step(self, action: np.ndarray) -> Tuple[Dict[str, np.ndarray], float, bool, Dict[str, Any]]:
         action = np.clip(np.asarray(action, dtype=np.float64), -1.0, 1.0)
         raw, reward, _, info = self.env.step(action)
+
+        if self.cfg.env_name == "PickPlaceCan":
+            self.env._get_observations(force_update=True)
+            raw = self.env._get_observations(force_update=True)
+
         self._last_raw_obs = raw
         self.t += 1
         success = bool(self.env._check_success())
@@ -122,6 +127,7 @@ class RobosuiteEnv:
         info = dict(info or {})
         info.update(success=success, horizon=horizon_hit, t=self.t)
         return self._extract(raw), float(reward), bool(success or horizon_hit), info
+        
 
     def _object_state(self) -> np.ndarray:
         """`object-state` rebuilt in robomimic-dataset (robosuite 1.4.1) convention.
@@ -138,12 +144,18 @@ class RobosuiteEnv:
             if obs.modality != "object":
                 continue
             val = np.atleast_1d(np.asarray(obs.obs, dtype=np.float64)).copy()
-            if self.cfg.legacy_object_state and _is_obj_eef_relative(name):
-                val = -val
-                self._flipped_sensors.add(name)
+
             parts.append(val)
         if not parts:
             raise KeyError(f"{self.cfg.env_name} exposes no object-modality sensors")
+
+        if self.cfg.env_name == "PickPlaceCan" and self.cfg.legacy_object_state:
+            if len(parts) != 4:
+                raise ValueError(
+                    f"Expected 4 PickPlaceCan object sensors, got {len(parts)}"
+                )
+            parts = [parts[2], parts[3], parts[0], parts[1]]
+
         return np.concatenate(parts, axis=-1)
 
     @property
@@ -210,6 +222,10 @@ class RobosuiteEnv:
                         pass
         # force_update is required after writing sim state directly: without it
         # robosuite returns observables cached from the last actual step.
+        # First update refreshes the observable cache.
+        self.env._get_observations(force_update=True)
+
+        # Second update produces consistent relative object observations.
         raw = self.env._get_observations(force_update=True)
         self._last_raw_obs = raw
         self.t = 0

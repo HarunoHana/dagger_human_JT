@@ -1,0 +1,7 @@
+{"t": 1792647675.2323964, "session_id": "1792647675_e3099e", "event": "session_start", "participant_id": "test_I", "condition": "yoked", "two_phase": false, "mode": "dagger", "algo": "bc_rnn", "env": "PickPlaceCan", "platform": "Windows-10-10.0.26200-SP0", "python": "3.10.21"}
+{"t": 1792647713.527437, "session_id": "1792647675_e3099e", "event": "round_start", "round": 0, "phase": 1, "condition": "yoked", "commit_update": false, "action_noise_std": 0.0, "reason": "scripted competence 8% from the ladder"}
+{"t": 1792647713.539948, "session_id": "1792647675_e3099e", "event": "ladder_rung", "round": 0, "target": 0.08, "rung_success": 0.08, "rung_noise": 0.0, "checkpoint": "bc_rnn_PickPlaceCan_p003.pth"}
+{"t": 1792647716.9626799, "session_id": "1792647675_e3099e", "event": "discard", "round": 0, "step": 13}
+{"t": 1792647728.973655, "session_id": "1792647675_e3099e", "event": "policy_update", "round": 0, "committed": false, "note": "pretrained checkpoint switching; no model training"}
+{"t": 1792647746.9575336, "session_id": "1792647675_e3099e", "event": "aborted", "where": "dagger_mode"}
+{"t": 1792647746.9585345, "session_id": "1792647675_e3099e", "event": "session_end", "participant_id": "test_I", "condition": "yoked", "two_phase": false, "phase2_condition": null, "n_rounds": 0, "mode": "dagger", "dataset": "data/sessions\\test_I_dagger_20261022_014115\\demos.hdf5", "session_dir": "data/sessions\\test_I_dagger_20261022_014115"}

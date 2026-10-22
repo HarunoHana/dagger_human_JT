@@ -1,0 +1,5 @@
+round_index,phase,condition,contingent,n_rollouts,n_success,steps_total,human_steps,engaged_steps,keypresses,n_interventions,first_intervention_step,time_to_first_intervention,idle_steps,giveup_events,discard_events,episode_seconds,success_rate,intervention_rate,engagement_rate,passivity,keypresses_per_step,survey_question1,survey_question2,survey_question3,survey_question4,survey_question5,train_committed,train_note
+0,1,yoked,False,1,0,374,6,0,3,1,23,1.23422,6,1,0,18.9677,0,0.0160428,0,1,0.00802139,1,1,1,1,1,False,pretrained checkpoint switching; no model training
+1,1,yoked,False,1,0,43,0,0,1,0,,,0,1,0,2.14568,0,0,0,0,0.0232558,1,1,1,1,1,False,pretrained checkpoint switching; no model training
+2,1,yoked,False,1,0,45,0,0,3,0,,,0,1,0,2.24069,0,0,0,0,0.0666667,1,1,1,1,1,False,pretrained checkpoint switching; no model training
+3,1,yoked,False,1,0,25,0,0,2,0,,,0,1,0,1.23602,0,0,0,0,0.08,1,1,1,1,1,False,pretrained checkpoint switching; no model training

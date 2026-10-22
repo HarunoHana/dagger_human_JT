@@ -61,6 +61,14 @@ def main() -> int:
     cfg = EnvConfig(env_name=env_name, horizon=10_000,
                     legacy_object_state=not args.no_legacy_object_state)
     env = make_env(cfg)
+    print("\nOBJECT SENSOR ORDER:")
+    offset = 0
+
+    for name, obs in env.env._observables.items():
+        if obs.is_enabled() and obs.is_active() and obs.modality == "object":
+            size = np.atleast_1d(np.asarray(obs.obs)).size
+            print(f"[{offset:02d}:{offset + size:02d}] {name}")
+            offset += size
     keys = list(cfg.low_dim_keys)
 
     demo_names = sorted((k for k in f["data"] if k.startswith("demo_")),
@@ -79,6 +87,17 @@ def main() -> int:
         states = np.asarray(g["states"])
         for t in np.linspace(0, len(states) - 1, args.timesteps).astype(int):
             mine = env.reset_to_sim_state(states[t])
+            if name == demo_names[0] and t == 0:
+                print("\nRELATIVE SENSOR REFRESH TEST")
+
+                before = mine["object"].copy()
+
+                raw = env.env._get_observations(force_update=True)
+                after = env._extract(raw)["object"]
+
+                print("Before:", before[7:14])
+                print("After: ", after[7:14])
+                print("Change:", np.max(np.abs(after - before)))
             for k in keys:
                 if k not in g["obs"]:
                     if k not in missing:
@@ -89,6 +108,34 @@ def main() -> int:
                     worst[k] = float("inf")
                     continue
                 worst[k] = max(worst[k], float(np.abs(mine[k] - ref).max()))
+                if k == "object" and name == demo_names[0] and t == 0:
+                    print("\nOBJECT OBSERVATION COMPARISON")
+                    for i, (expected, actual) in enumerate(zip(ref, mine[k])):
+                        print(
+                            f"[{i:02d}] "
+                            f"dataset={expected:+.5f}  "
+                            f"current={actual:+.5f}  "
+                            f"diff={actual-expected:+.5f}"
+                        )
+                if k == "object" and name == demo_names[0] and t == 0:
+                    reordered = np.concatenate([mine[k][7:14], mine[k][0:7]])
+                    print("Absolute pose error:",
+                        np.max(np.abs(reordered[:7] - ref[:7])))
+
+                    print("Relative pose error:",
+                        np.max(np.abs(reordered[7:] - ref[7:])))
+                    if k == "object" and name == demo_names[0] and t == 0:
+                        can_pos = mine[k][7:10]
+                        eef_pos = mine["robot0_eef_pos"]
+
+                        print("Expected relative XYZ:", ref[7:10])
+                        print("EEF - Can:", eef_pos - can_pos)
+                        print("Can - EEF:", can_pos - eef_pos)
+                        print("Current relative XYZ:", mine[k][0:3])
+                    print(
+                        "REORDERED MAX DIFF:",
+                        np.max(np.abs(reordered - ref))
+                    )
 
     ok_obs = True
     for k in keys:

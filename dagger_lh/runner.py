@@ -158,7 +158,21 @@ class SessionRunner:
         buf = EpisodeBuffer()
         buf.model_xml = self.env.get_model_xml()
 
-        obs = self.env.reset()
+        if policy is not None and self.cfg.env.env_name == "PickPlaceCan":
+            from .evaluate import sample_init_states
+
+            if not hasattr(self, "_study_init_states"):
+                self._study_init_states = sample_init_states(
+                    self.env,
+                    n=max(self.study.total_rounds, 50),
+                    seed=9901,
+                )
+
+            obs = self.env.reset_to_sim_state(
+                self._study_init_states[round_index]
+            )
+        else:
+            obs = self.env.reset()
         self.teleop.reset_episode()
         if policy is not None:
             policy.reset_rollout()
@@ -212,6 +226,13 @@ class SessionRunner:
                 self.logger.log("discard", {"round": round_index, "step": step})
                 break
             if st.event_success:
+                if policy is not None and self.ladder is not None:
+                    # In the I/W/S study, Enter must not fabricate a robot success.
+                    # Only info["success"] from the environment can mark success.
+                    self.logger.log("manual_success_ignored", {
+                        "round": round_index, "step": step,
+                    })
+                    continue
                 success = True
                 break
 
@@ -400,8 +421,8 @@ class SessionRunner:
             "The robot will try the task on its own.\n"
             "Watch it. When it goes wrong, press TAB to TAKE CONTROL\n"
             "and show it what to do. Press TAB again to hand control back.\n\n"
-            "After each attempt the robot learns from your corrections.\n"
-            "ENTER = done   BACKSPACE = redo   X = give up on this attempt",
+            "After each attempt, the robot policy may change.\n"
+            "BACKSPACE = retry   X = give up (move to survey)\n"
         )
         if self.display.wait_for_key() == self.display.K_ESCAPE:
             return {"aborted": True}
@@ -444,14 +465,41 @@ class SessionRunner:
                         "checkpoint": rung["checkpoint"],
                     })
 
+                if r == 0 and plan.ladder_target is not None and self.ladder is not None:
+                    first_rung = self.ladder.nearest(plan.ladder_target)
+                    self.display.message(
+                        "Robot Policy — Attempt 1 of 4",
+                        f"Current policy success rate: {first_rung['verified_success']:.0%}\n\n"
+                        "Press ENTER to begin.",
+                    )
+                    if self.display.wait_for_key() == self.display.K_ESCAPE:
+                        raise _Aborted()
+
                 # ---- rollouts ----
                 for k in range(int(cfg.study.rollouts_per_round)):
-                    res = self.run_episode(
-                        policy=rollout_policy, round_index=r, phase=plan.phase,
-                        condition=plan.condition,
-                        action_noise_std=round_noise,
-                        hud_extra={"phase": f"{plan.phase}", "feedback": feedback},
-                    )
+                    # BACKSPACE discards the attempt and retries THIS round.
+                    # It must not trigger the policy-update/survey flow.
+                    while True:
+                        res = self.run_episode(
+                            policy=rollout_policy, round_index=r, phase=plan.phase,
+                            condition=plan.condition,
+                            action_noise_std=round_noise,
+                            hud_extra={"phase": f"{plan.phase}", "feedback": feedback},
+                        )
+                        if res.discarded:
+                            self.logger.log("round_retry", {
+                                "round": r, "rollout": k,
+                                "reason": "backspace_discard",
+                            })
+                            self.display.message(
+                                "Retrying Attempt",
+                                f"Attempt {r + 1} of {self.study.total_rounds}"
+                                "\n\nPress ENTER to retry.",
+                            )
+                            if self.display.wait_for_key() == self.display.K_ESCAPE:
+                                raise _Aborted()
+                            continue
+                        break
                     metrics.n_rollouts += 1
                     metrics.steps_total += res.steps
                     metrics.human_steps += res.human_steps
@@ -472,33 +520,67 @@ class SessionRunner:
                         self._commit_episode(res.buffer, r, plan.phase,
                                              plan.condition, res.success, "dagger")
 
-                # ---- policy update (contingency manipulation lives here) ----
-                self.display.message(
-                    "Updating the robot's policy",
-                    "Learning from your corrections...\n\nplease wait",
-                    sub="")
-                t_update = time.time()
-                report = trainer.finetune(
-                    self.episodes,
-                    commit=plan.commit_update,
-                    progress_cb=lambda i, n, l: self._train_progress(i, n, l),
-                )
-                # Equalise perceived delay across conditions: without this floor a
-                # faster sham update would itself signal the condition.
-                floor = float(cfg.train.finetune_min_seconds)
-                if floor > 0:
-                    remaining = floor - (time.time() - t_update)
-                    if remaining > 0:
-                        self._wait_showing(
-                            "Updating the robot's policy",
-                            "Learning from your corrections...\n\nplease wait",
-                            remaining)
-                metrics.train_report = report.as_dict()
-                self.logger.log("policy_update", {"round": r, **report.as_dict()})
+                # IWS_THREE_SETS_V2: Only swap pretrained policies for I/W/S.
+                # Official probabilities: Michelle's verified_success in ladder.json.
+                # Local cross-check: 10 checkpoints x 50 rollouts = 500 rollouts.
+                # Individual local rates differed, but the overall trend was similar.
+                # No participant-dependent training is committed for these sets.
+                if plan.ladder_target is not None:
+                    self._wait_showing(
+                        "Updating Robot Policy",
+                        "Preparing the next robot policy...",
+                        max(1.0, float(cfg.train.finetune_min_seconds)),
+                    )
+                    metrics.train_report = {
+                        "committed": False,
+                        "note": "pretrained checkpoint switching; no model training",
+                    }
+                    self.logger.log("policy_update", {
+                        "round": r, **metrics.train_report,
+                    })
+                else:
+                    # Retain original training behavior for other experiments.
+                    self.display.message(
+                        "Updating the robot's policy",
+                        "Learning from your corrections...\n\nplease wait", sub="")
+                    t_update = time.time()
+                    report = trainer.finetune(
+                        self.episodes, commit=plan.commit_update,
+                        progress_cb=lambda i, n, l: self._train_progress(i, n, l),
+                    )
+                    floor = float(cfg.train.finetune_min_seconds)
+                    if floor > 0:
+                        remaining = floor - (time.time() - t_update)
+                        if remaining > 0:
+                            self._wait_showing(
+                                "Updating the robot's policy",
+                                "Learning from your corrections...\n\nplease wait",
+                                remaining)
+                    metrics.train_report = report.as_dict()
+                    self.logger.log("policy_update", {"round": r, **report.as_dict()})
 
-                # ---- survey ----
-                if (cfg.study.survey_enabled
-                        and (r + 1) % max(1, cfg.study.survey_every_n_rounds) == 0):
+                if plan.ladder_target is not None and self.ladder is not None:
+                    # Show NEXT policy's rate before survey, not the previous
+                    # round's measured success. Last round shows current rate.
+                    if r + 1 < self.study.total_rounds:
+                        shown_plan = self.study.plan_round(r + 1)
+                        shown_rung = self.ladder.nearest(shown_plan.ladder_target)
+                        subtitle = f"Next attempt: {r + 2} of 4"
+                    else:
+                        shown_rung = self.ladder.nearest(plan.ladder_target)
+                        subtitle = "Final attempt complete"
+                    self.display.message(
+                        "Robot Policy Updated",
+                        f"{subtitle}\n\n"
+                        f"Current policy success rate: {shown_rung['verified_success']:.0%}\n\n"
+                        "Press ENTER to answer questions.",
+                    )
+                    if self.display.wait_for_key() == self.display.K_ESCAPE:
+                        raise _Aborted()
+                    metrics.survey = self._iws_placeholder_survey(r)
+                    self.logger.log("survey", {"round": r, **metrics.survey})
+                elif (cfg.study.survey_enabled
+                      and (r + 1) % max(1, cfg.study.survey_every_n_rounds) == 0):
                     metrics.survey = self.survey.run(
                         header=f"Check-in after attempt {r + 1}")
                     self.logger.log("survey", {"round": r, **metrics.survey})
@@ -508,17 +590,6 @@ class SessionRunner:
 
                 feedback = self.study.progress_feedback(
                     r, metrics.success_rate, metrics.train_report)
-
-                if r < self.study.total_rounds - 1:
-                    self.display.message(
-                        f"Attempt {r + 1} complete",
-                        f"{feedback}\n\nsuccessful: {metrics.n_success}"
-                        f"/{metrics.n_rollouts}\n"
-                        f"you were in control {100 * metrics.intervention_rate:.0f}%"
-                        f" of the time",
-                    )
-                    if self.display.wait_for_key() == self.display.K_ESCAPE:
-                        break
 
                 ckpt = os.path.join(self.session_dir, f"adapter_round_{r}.pth")
                 trainer.save_adapter(ckpt, extra={"round": r,
@@ -536,6 +607,27 @@ class SessionRunner:
             sub="press ENTER to exit")
         self.display.wait_for_key()
         return summary
+
+    def _iws_placeholder_survey(self, round_index: int) -> Dict[str, int]:
+        """Temporary survey: Question 1..5, scale 1..10 (0 = 10)."""
+        import pygame
+        answers = {}
+        keys = [getattr(pygame, f"K_{n}") for n in range(1, 10)] + [pygame.K_0]
+        for n in range(1, 6):
+            while True:
+                self.display.message(
+                    f"Survey — Attempt {round_index + 1} of 4",
+                    f"Question {n}\n\nTEST QUESTION\n\n"
+                    "Please rate from 1 to 10",
+                    sub="",
+                )
+                key = self.display.wait_for_key(keys + [pygame.K_ESCAPE])
+                if key == pygame.K_ESCAPE:
+                    raise _Aborted()
+                if key in keys:
+                    answers[f"question{n}"] = keys.index(key) + 1
+                    break
+        return answers
 
     def _train_progress(self, i: int, n: int, loss: float) -> None:
         bar = int(28 * i / max(n, 1))
